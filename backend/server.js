@@ -26,8 +26,13 @@ app.use(express.urlencoded({ extended: true })); // To parse form data in the re
 app.use(cookieParser());
 
 // Routes
+
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
+connectDB().then(() => {
+    server.listen(PORT, () => {
+        console.log("Server started at http://localhost:${PORT}");
+    })
+})
